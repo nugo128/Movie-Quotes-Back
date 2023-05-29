@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RegistrationRequest;
+use App\Mail\ConfirmationMail;
 use App\Models\User;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class RegistrationController extends Controller
 {
@@ -12,11 +13,12 @@ class RegistrationController extends Controller
 	{
 		$validatedData = $request->validated();
 
-		$user = User::create([
-			'name'     => $validatedData['name'],
-			'email'    => $validatedData['email'],
-			'password' => bcrypt($validatedData['password']),
-		]);
+		$user = new User();
+		$user->name = $validatedData['name'];
+		$user->email = $validatedData['email'];
+		$user->password = bcrypt($validatedData['password']);
+
+		Mail::to($user->email)->send(new ConfirmationMail($user));
 
 		return response()->json(['message' => 'Registration successful'], 201);
 	}
