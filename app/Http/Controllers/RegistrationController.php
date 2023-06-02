@@ -12,14 +12,15 @@ class RegistrationController extends Controller
 	public function register(RegistrationRequest $request)
 	{
 		$validatedData = $request->validated();
+		$user = User::create([
+			'name'     => $validatedData['name'],
+			'email'    => $validatedData['email'],
+			'password' => bcrypt($validatedData['password']),
+		]);
+		auth()->login($user);
 
-		$user = new User();
-		$user->name = $validatedData['name'];
-		$user->email = $validatedData['email'];
-		$user->password = bcrypt($validatedData['password']);
+		// Mail::to($user->email)->send(new ConfirmationMail($user));
 
-		Mail::to($user->email)->send(new ConfirmationMail($user));
-
-		return response()->json(['message' => 'Registration successful'], 201);
+		return response()->json(['message'=> 'registered'], 201);
 	}
 }

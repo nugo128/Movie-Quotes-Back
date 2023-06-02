@@ -8,7 +8,7 @@
         <h2 style="color:#DDCCAA">MOVIE QUOTES</h2>
     </div>
     <div class="texts main-container">
-        <h2 class="spacing">Hola Name</h2>
+        <h2 class="spacing">Hola {{$user->name}}</h2>
         <h2 class="spacing">Thanks for joining Movie quotes! We really appreciate it. Please click the button below to verify your
             account:</h2>
         <a href="#" class="button spacing">Verify account</a>
