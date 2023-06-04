@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\RegistrationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,3 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::post('/register', [RegistrationController::class, 'register']);
 Route::get('/verify/{token}', [RegistrationController::class, 'verify']);
+
+Route::get('auth/google', [GoogleAuthController::class, 'signInwithGoogle']);
+Route::get('callback/google', [GoogleAuthController::class, 'callbackToGoogle']);
