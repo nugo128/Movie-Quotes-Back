@@ -26,6 +26,7 @@ Route::get('/verify/{token}', [RegistrationController::class, 'verify']);
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLinkEmail']);
+Route::post('/reset-password', [PasswordResetController::class, 'resetPassword']);
 
 Route::get('auth/google', [GoogleAuthController::class, 'signInwithGoogle']);
 Route::get('callback/google', [GoogleAuthController::class, 'callbackToGoogle']);
