@@ -19,6 +19,7 @@ return new class() extends Migration {
 			$table->string('gauth_id')->nullable();
 			$table->string('gauth_type')->nullable();
 			$table->string('password')->nullable();
+			$table->string('reset_token')->nullable();
 			$table->rememberToken();
 			$table->timestamps();
 		});
