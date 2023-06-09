@@ -7,5 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Movie extends Model
 {
-    use HasFactory;
+	use HasFactory;
+
+	protected $fillable = [
+		'title',
+		'thumbnail',
+		'year',
+	];
+
+	public function quote()
+	{
+		return $this->hasMany(Quote::class);
+	}
 }
