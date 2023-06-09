@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Comment;
+use App\Models\Like;
 use App\Models\Movie;
 use App\Models\Quote;
 use App\Models\User;
@@ -23,7 +25,9 @@ class DatabaseSeeder extends Seeder
 		//     'email' => 'test@example.com',
 		// ]);
 		// Movie::factory(5)->create();
-		Quote::factory(2)->create();
+		// Quote::factory(2)->create();
+		Like::factory()->create();
+		Comment::factory()->create();
 		// User::factory()->create();
 	}
 }
