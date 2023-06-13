@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\LoginRequest;
+use Illuminate\Http\JsonResponse;
 
 class AuthController extends Controller
 {
-	public function login(LoginRequest $request)
+	public function login(LoginRequest $request): JsonResponse
 	{
 		$attributes = $request->validated();
 		$fieldType = filter_var($attributes['username'], FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
@@ -16,5 +17,11 @@ class AuthController extends Controller
 		}
 
 		return response()->json(['message'=> 'user not found'], 404);
+	}
+
+	public function logout(): JsonResponse
+	{
+		auth()->logout();
+		return response()->json(['message'=> 'user logged out'], 200);
 	}
 }

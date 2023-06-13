@@ -33,6 +33,7 @@ Route::post('/comment', [CommentController::class, 'store']);
 Route::post('/register', [RegistrationController::class, 'register']);
 Route::get('/verify/{token}', [RegistrationController::class, 'verify']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/logout', [AuthController::class, 'logout']);
 
 Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLinkEmail']);
 Route::post('/reset-password', [PasswordResetController::class, 'resetPassword']);
