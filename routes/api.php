@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PasswordResetController;
@@ -27,6 +28,7 @@ Route::get('/post', [QuoteController::class, 'getPost']);
 Route::post('/like', [LikeController::class, 'store']);
 Route::post('/get-likes', [LikeController::class, 'getLikes']);
 Route::post('/remove-like', [LikeController::class, 'destroy']);
+Route::post('/comment', [CommentController::class, 'store']);
 
 Route::post('/register', [RegistrationController::class, 'register']);
 Route::get('/verify/{token}', [RegistrationController::class, 'verify']);

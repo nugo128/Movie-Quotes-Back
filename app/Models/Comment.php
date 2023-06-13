@@ -9,9 +9,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Comment extends Model
 {
 	use HasFactory;
-
 	protected $fillable = [
-		'comments',
+		'quote_id',
+		'user_id',
+		'created_at',
+		'comments'
 	];
 
 	public function quote(): BelongsTo
@@ -21,6 +23,6 @@ class Comment extends Model
 
 	public function user(): BelongsTo
 	{
-		return $this->belongsTo(User::class, 'user_id');
+		return $this->belongsTo(User::class);
 	}
 }
