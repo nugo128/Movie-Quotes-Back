@@ -18,7 +18,7 @@ class RegistrationController extends Controller
 			'name'               => $validatedData['name'],
 			'email'              => $validatedData['email'],
 			'password'           => bcrypt($validatedData['password']),
-			'verification_token' => Str::random(64),
+			'verification_token' => Str::random(128),
 		]);
 
 		Mail::to($user->email)->send(new ConfirmationMail($user));
