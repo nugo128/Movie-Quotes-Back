@@ -14,6 +14,8 @@ class Quote extends Model
 	protected $fillable = [
 		'quote',
 		'thumbnail',
+		'movie_id',
+		'user_id',
 	];
 
 	public function movie(): BelongsTo

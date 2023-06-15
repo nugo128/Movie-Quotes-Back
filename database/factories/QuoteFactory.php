@@ -5,6 +5,7 @@ namespace Database\Factories;
 use App\Models\Movie;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Faker\Factory as Faker;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Quote>
@@ -18,9 +19,13 @@ class QuoteFactory extends Factory
 	 */
 	public function definition(): array
 	{
+		$quotes = [
+			'en' => fake()->unique()->sentence(),
+			'ka' => Faker::create('ka_GE')->realText(20),
+		];
 		return [
 			'movie_id'   => Movie::factory(),
-			'quote'      => fake()->unique()->sentence(),
+			'quote'      => json_encode($quotes),
 			'user_id'    => User::factory(),
 			'thumbnail'  => $this->faker->imageUrl(),
 			'created_at' => now(),
