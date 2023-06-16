@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\NewPostRequest;
 use App\Http\Requests\SearchRequest;
+use App\Http\Resources\QuotePostResource;
 use App\Models\Quote;
 use Illuminate\Http\JsonResponse;
 
@@ -11,7 +12,7 @@ class QuoteController extends Controller
 {
 	public function getPost(): JsonResponse
 	{
-		$quotes = Quote::with('user', 'movie', 'like', 'comment.user')->orderBy('id', 'desc')->get();
+		$quotes = QuotePostResource::collection(Quote::orderByDesc('id')->get());
 		return response()->json($quotes, 200);
 	}
 
@@ -35,25 +36,25 @@ class QuoteController extends Controller
 	{
 		if (strpos($request->search, '#') === 0) {
 			$search = ltrim($request->search, $request->search[0]);
-			$quote = Quote::with('user', 'movie', 'like', 'comment.user')->where('quote->en', 'like', '%' . $search . '%')->orWhere('quote->ka', 'like', '%' . $search . '%')->get();
+			$quote = QuotePostResource::collection(Quote::with('user', 'movie', 'like', 'comment.user')->where('quote->en', 'like', '%' . $search . '%')->orWhere('quote->ka', 'like', '%' . $search . '%')->orderByDesc('id')->get());
 		} elseif (strpos($request->search, '@') === 0) {
 			$search = ltrim($request->search, $request->search[0]);
-			$quote = Quote::with('user', 'movie', 'like', 'comment.user')
+			$quote = QuotePostResource::collection(Quote::with('user', 'movie', 'like', 'comment.user')
 			->whereHas('movie', function ($query) use ($search) {
 				$query->where('title', 'like', '%' . $search . '%');
-			})
-			->get();
+			})->orderByDesc('id')
+			->get());
 		} else {
 			$search = $request->search;
-			$quote = Quote::with('user', 'movie', 'like', 'comment.user')
+			$quote = QuotePostResource::collection(Quote::with('user', 'movie', 'like', 'comment.user')
 				->where(function ($query) use ($search) {
 					$query->where('quote->en', 'like', '%' . $search . '%')
 						->orWhere('quote->ka', 'like', '%' . $search . '%');
 				})
 				->orWhereHas('movie', function ($query) use ($search) {
 					$query->where('title', 'like', '%' . $search . '%');
-				})
-				->get();
+				})->orderByDesc('id')
+				->get());
 		}
 		return response()->json($quote, 200);
 	}
