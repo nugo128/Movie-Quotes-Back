@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\NewPostRequest;
+use App\Http\Requests\SearchRequest;
 use App\Models\Quote;
 use Illuminate\Http\JsonResponse;
 
@@ -28,5 +29,32 @@ class QuoteController extends Controller
 		]);
 		$quote->save();
 		return response()->json(['message'=> asset('storage/' . $quote['thumbnail'])], 200);
+	}
+
+	public function searchPost(SearchRequest $request): JsonResponse
+	{
+		if (strpos($request->search, '#') === 0) {
+			$search = ltrim($request->search, $request->search[0]);
+			$quote = Quote::with('user', 'movie', 'like', 'comment.user')->where('quote->en', 'like', '%' . $search . '%')->orWhere('quote->ka', 'like', '%' . $search . '%')->get();
+		} elseif (strpos($request->search, '@') === 0) {
+			$search = ltrim($request->search, $request->search[0]);
+			$quote = Quote::with('user', 'movie', 'like', 'comment.user')
+			->whereHas('movie', function ($query) use ($search) {
+				$query->where('title', 'like', '%' . $search . '%');
+			})
+			->get();
+		} else {
+			$search = $request->search;
+			$quote = Quote::with('user', 'movie', 'like', 'comment.user')
+				->where(function ($query) use ($search) {
+					$query->where('quote->en', 'like', '%' . $search . '%')
+						->orWhere('quote->ka', 'like', '%' . $search . '%');
+				})
+				->orWhereHas('movie', function ($query) use ($search) {
+					$query->where('title', 'like', '%' . $search . '%');
+				})
+				->get();
+		}
+		return response()->json($quote, 200);
 	}
 }

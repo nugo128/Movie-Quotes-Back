@@ -27,6 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Route::get('/post', [QuoteController::class, 'getPost']);
 Route::post('/newPost', [QuoteController::class, 'newPost']);
+Route::get('/search-post', [QuoteController::class, 'searchPost']);
 Route::get('/movies', [MovieController::class, 'getMovies']);
 Route::post('/like', [LikeController::class, 'store']);
 Route::post('/get-likes', [LikeController::class, 'getLikes']);
