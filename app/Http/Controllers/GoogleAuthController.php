@@ -11,20 +11,21 @@ class GoogleAuthController extends Controller
 {
 	public function signInwithGoogle()
 	{
-		return Socialite::driver('google')->redirect();
+		$redirectUrl = Socialite::driver('google')->stateless()->redirect()->getTargetUrl();
+		return response()->json(['message'=> $redirectUrl]);
 	}
 
 	public function callbackToGoogle()
 	{
 		try {
-			$user = Socialite::driver('google')->user();
+			$user = Socialite::driver('google')->stateless()->user();
 
 			$finduser = User::where('email', $user->email)->first();
 
 			if ($finduser) {
 				Auth::login($finduser);
 
-				return response()->json(['message'=> 'successfull google authentication'], 201);
+				return redirect(env('FRONTEND_URL') . '/newsfeed');
 			} else {
 				$newUser = User::create([
 					'name'      => $user->name,
@@ -35,7 +36,7 @@ class GoogleAuthController extends Controller
 
 				Auth::login($newUser);
 
-				return response()->json(['message'=> 'successfull google registration'], 201);
+				return redirect(env('FRONTEND_URL') . '/newsfeed');
 			}
 		} catch (Exception $error) {
 			return response()->json(['message'=> $error->getMessage()]);
