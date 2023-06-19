@@ -18,8 +18,8 @@ class CommentRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'quote_id' => 'required',
-            'comment'=>'required'
+			'quote_id' => 'required|exists:quotes,id',
+			'comment'  => 'required',
 		];
 	}
 }

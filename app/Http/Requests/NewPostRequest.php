@@ -20,7 +20,7 @@ class NewPostRequest extends FormRequest
 		return [
 			'quote_ka' => 'required|regex:/^[ა-ჰ.,!?\s]*$/',
 			'quote_en' => 'required|regex:/^[a-zA-Z0-9\s]+$/',
-			'movie_id' => 'required',
+			'movie_id' => 'required|exists:movies,id',
 			'image'    => 'image',
 		];
 	}

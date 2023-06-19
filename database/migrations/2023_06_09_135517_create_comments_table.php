@@ -14,7 +14,7 @@ return new class extends Migration {
 			$table->id();
 			$table->foreignId('user_id')->constrained('users');
 			$table->foreignId('quote_id')->constrained('quotes');
-			$table->string('comments');
+			$table->longText('comments');
 			$table->timestamp('created_at');
 			$table->timestamp('updated_at')->nullable();
 		});
