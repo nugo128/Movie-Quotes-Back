@@ -8,6 +8,7 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\RegistrationController;
+use App\Http\Controllers\UserProfileController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 	return $request->user();
 });
+
+Route::post('/editProfile', [UserProfileController::class, 'editProfile']);
+Route::get('/verify-new-email/{token}', [UserProfileController::class, 'verify']);
+
 Route::get('/post', [QuoteController::class, 'getPost']);
 Route::post('/newPost', [QuoteController::class, 'newPost']);
 Route::get('/search-post', [QuoteController::class, 'searchPost']);
