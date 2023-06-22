@@ -24,10 +24,8 @@ class DatabaseSeeder extends Seeder
 		//     'name' => 'Test User',
 		//     'email' => 'test@example.com',
 		// ]);
-		// Movie::factory(5)->create();
-		// Quote::factory(2)->create();
 		Like::factory()->create();
 		Comment::factory()->create();
-		// User::factory()->create();
+
 	}
 }
