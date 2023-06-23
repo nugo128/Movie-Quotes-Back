@@ -18,12 +18,13 @@ class MovieFactory extends Factory
 	public function definition(): array
 	{
 		return [
-			'title'     => fake()->unique()->sentence(),
-			'user_id'   => User::factory(),
-			'director'  => fake()->name(),
-			'year'      => fake()->year(),
-			'thumbnail' => $this->faker->imageUrl(),
-			'created_at'=> now(),
+			'title'        => fake()->unique()->sentence(),
+			'user_id'      => User::factory(),
+			'director'     => fake()->name(),
+			'description'  => fake()->text(),
+			'year'         => fake()->year(),
+			'thumbnail'    => $this->faker->imageUrl(),
+			'created_at'   => now(),
 		];
 	}
 }

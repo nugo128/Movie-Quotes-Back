@@ -16,6 +16,7 @@ return new class extends Migration {
 			$table->string('title');
 			$table->string('director');
 			$table->string('thumbnail');
+			$table->longText('description');
 			$table->string('year');
 			$table->timestamp('created_at');
 			$table->timestamp('updated_at')->nullable();

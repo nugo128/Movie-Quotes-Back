@@ -12,11 +12,7 @@ class Movie extends Model
 {
 	use HasFactory;
 
-	protected $fillable = [
-		'title',
-		'thumbnail',
-		'year',
-	];
+	protected $guarded = ['id'];
 
 	public function quote(): HasMany
 	{
