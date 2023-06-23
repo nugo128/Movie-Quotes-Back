@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\MovieRequest;
+use App\Http\Requests\MovieSearchRequest;
 use App\Http\Resources\MovieResource;
 use App\Models\Movie;
 use Illuminate\Database\Eloquent\Model;
@@ -43,6 +44,15 @@ class MovieController extends Controller
 	public function getMovies(): JsonResponse
 	{
 		$movies = MovieResource::collection(Movie::all());
+		return response()->json($movies, 200);
+	}
+
+	public function searchMovies(MovieSearchRequest $request): JsonResponse
+	{
+		$search = $request->search;
+		$user = auth()->user();
+		$movies = MovieResource::collection($user->movie()->whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(title, '$.\"en\"'))) LIKE ?", ['%' . strtolower($search) . '%'])->orWhere('title->ka', 'like', '%' . strtolower($search) . '%')->orderByDesc('id')->get());
+
 		return response()->json($movies, 200);
 	}
 

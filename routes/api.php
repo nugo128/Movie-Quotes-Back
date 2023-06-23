@@ -39,6 +39,7 @@ Route::get('/search-post', [QuoteController::class, 'searchPost']);
 Route::get('/movies', [MovieController::class, 'getMovies']);
 Route::post('/add-movie', [MovieController::class, 'store']);
 Route::get('/user-movies', [MovieController::class, 'userMovies']);
+Route::get('/search-movie', [MovieController::class, 'searchMovies']);
 Route::post('/like', [LikeController::class, 'store']);
 Route::post('/get-likes', [LikeController::class, 'getLikes']);
 Route::post('/remove-like', [LikeController::class, 'destroy']);

@@ -36,7 +36,7 @@ class QuoteController extends Controller
 	{
 		if (strpos($request->search, '#') === 0) {
 			$search = ltrim($request->search, $request->search[0]);
-			$quote = QuotePostResource::collection(Quote::with('user', 'movie', 'like', 'comment.user')->where('quote->en', 'like', '%' . $search . '%')->orWhere('quote->ka', 'like', '%' . $search . '%')->orderByDesc('id')->get());
+			$quote = QuotePostResource::collection(Quote::with('user', 'movie', 'like', 'comment.user')->whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(quote, '$.\"en\"'))) LIKE ?", ['%' . strtolower($search) . '%'])->orWhere('quote->ka', 'like', '%' . $search . '%')->orderByDesc('id')->get());
 		} elseif (strpos($request->search, '@') === 0) {
 			$search = ltrim($request->search, $request->search[0]);
 			$quote = QuotePostResource::collection(Quote::with('user', 'movie', 'like', 'comment.user')
@@ -48,7 +48,7 @@ class QuoteController extends Controller
 			$search = $request->search;
 			$quote = QuotePostResource::collection(Quote::with('user', 'movie', 'like', 'comment.user')
 				->where(function ($query) use ($search) {
-					$query->where('quote->en', 'like', '%' . $search . '%')
+					$query->whereRaw("LOWER(JSON_UNQUOTE(JSON_EXTRACT(quote, '$.\"en\"'))) LIKE ?", ['%' . strtolower($search) . '%'])
 						->orWhere('quote->ka', 'like', '%' . $search . '%');
 				})
 				->orWhereHas('movie', function ($query) use ($search) {
