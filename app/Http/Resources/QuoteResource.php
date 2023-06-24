@@ -15,8 +15,11 @@ class QuoteResource extends JsonResource
 	public function toArray(Request $request): array
 	{
 		return [
-			'id'               => $this->id,
-			'quote'            => $this->quote,
+			'id'                 => $this->id,
+			'quote'              => $this->quote,
+			'like'               => $this->like,
+			'comment'            => $this->comment,
+			'thumbnail'          => $this->thumbnail,
 		];
 	}
 }

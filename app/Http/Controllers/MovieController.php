@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MovieDescriptionRequest;
 use App\Http\Requests\MovieRequest;
 use App\Http\Requests\MovieSearchRequest;
 use App\Http\Resources\MovieResource;
@@ -61,6 +62,13 @@ class MovieController extends Controller
 		$user = auth()->user();
 		$movies = MovieResource::collection($user->movie()->orderByDesc('id')->get());
 		return response()->json($movies, 200);
+	}
+
+	public function movieDescription(MovieDescriptionRequest $request): JsonResponse
+	{
+		$id = $request->id;
+		$movie = new MovieResource(Movie::find($id));
+		return response()->json($movie, 200);
 	}
 
 	private function addGenres(Model $movie, $categories)

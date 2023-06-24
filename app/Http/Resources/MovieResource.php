@@ -15,12 +15,15 @@ class MovieResource extends JsonResource
 	public function toArray(Request $request): array
 	{
 		return [
-			'id'         => $this->id,
-			'title'      => $this->title,
-			'year'       => $this->year,
-			'user_id'    => $this->user_id,
-			'thumbnail'  => $this->thumbnail,
-			'quote'      => QuoteResource::collection($this->quote),
+			'id'             => $this->id,
+			'title'          => $this->title,
+			'year'           => $this->year,
+			'user_id'        => $this->user_id,
+			'thumbnail'      => $this->thumbnail,
+			'description'    => $this->description,
+			'category'       => $this->categories,
+			'director'       => $this->director,
+			'quote'          => QuoteResource::collection($this->quote),
 		];
 	}
 }
