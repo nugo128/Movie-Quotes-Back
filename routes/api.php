@@ -41,6 +41,7 @@ Route::post('/add-movie', [MovieController::class, 'store']);
 Route::get('/user-movies', [MovieController::class, 'userMovies']);
 Route::get('/search-movie', [MovieController::class, 'searchMovies']);
 Route::get('/movie-description', [MovieController::class, 'movieDescription']);
+Route::delete('/delete-movie/{movieId}', [MovieController::class, 'destroy']);
 Route::post('/like', [LikeController::class, 'store']);
 Route::post('/get-likes', [LikeController::class, 'getLikes']);
 Route::post('/remove-like', [LikeController::class, 'destroy']);
