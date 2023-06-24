@@ -36,6 +36,7 @@ Route::get('/category', [CategoryCotroller::class, 'index']);
 Route::get('/post', [QuoteController::class, 'getPost']);
 Route::post('/newPost', [QuoteController::class, 'newPost']);
 Route::get('/search-post', [QuoteController::class, 'searchPost']);
+Route::delete('/delete-quote/{quoteId}', [QuoteController::class, 'destroy']);
 Route::get('/movies', [MovieController::class, 'getMovies']);
 Route::post('/add-movie', [MovieController::class, 'store']);
 Route::get('/user-movies', [MovieController::class, 'userMovies']);
