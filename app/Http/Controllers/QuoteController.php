@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\NewPostRequest;
 use App\Http\Requests\SearchRequest;
+use App\Http\Requests\ViewQuoteRequest;
 use App\Http\Resources\QuotePostResource;
 use App\Models\Quote;
 use Illuminate\Http\JsonResponse;
@@ -70,5 +71,12 @@ class QuoteController extends Controller
 		$quote->delete();
 
 		return response()->json(['message' => 'Quote deleted successfully']);
+	}
+
+	public function viewQuote(ViewQuoteRequest $request): JsonResponse
+	{
+		$id = $request->id;
+		$quotes = new QuotePostResource(Quote::find($id));
+		return response()->json($quotes, 200);
 	}
 }
