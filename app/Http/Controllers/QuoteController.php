@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\NewPostRequest;
 use App\Http\Requests\SearchRequest;
+use App\Http\Requests\UpdateQuoteRequest;
 use App\Http\Requests\ViewQuoteRequest;
 use App\Http\Resources\QuotePostResource;
 use App\Models\Quote;
@@ -60,7 +61,7 @@ class QuoteController extends Controller
 		return response()->json($quote, 200);
 	}
 
-	public function destroy($quoteId)
+	public function destroy($quoteId): JsonResponse
 	{
 		$quote = Quote::find($quoteId);
 
@@ -78,5 +79,33 @@ class QuoteController extends Controller
 		$id = $request->id;
 		$quotes = new QuotePostResource(Quote::find($id));
 		return response()->json($quotes, 200);
+	}
+
+	public function update(UpdateQuoteRequest $request): JsonResponse
+	{
+		$id = $request->input('id');
+		$quote = Quote::where('id', $id)->first();
+		if ($request->has('quote_en')) {
+			$quote_ka = json_decode($quote->quote)->ka;
+			$quotes = [
+				'ka' => $quote_ka,
+				'en' => $request->input('quote_en'),
+			];
+			$quote->quote = json_encode($quotes);
+		}
+		if ($request->has('quote_ka')) {
+			$quote_en = json_decode($quote->quote)->en;
+			$quotes = [
+				'ka' => $request->input('quote_ka'),
+				'en' => $quote_en,
+			];
+			$quote->quote = json_encode($quotes);
+		}
+		if ($request->file('image')) {
+			$quote->thumbnail = $request->file('image')->store('images');
+		}
+		$quote->save();
+
+		return response()->json($quote, 200);
 	}
 }

@@ -35,6 +35,7 @@ Route::get('/category', [CategoryCotroller::class, 'index']);
 
 Route::get('/post', [QuoteController::class, 'getPost']);
 Route::post('/newPost', [QuoteController::class, 'newPost']);
+Route::post('/edit-quote', [QuoteController::class, 'update']);
 Route::get('/search-post', [QuoteController::class, 'searchPost']);
 Route::get('/view-quote', [QuoteController::class, 'viewQuote']);
 Route::delete('/delete-quote/{quoteId}', [QuoteController::class, 'destroy']);
