@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\LikeEvent;
+use App\Events\RemoveLike;
 use App\Http\Requests\LikeRequest;
 use App\Models\Like;
 use Illuminate\Http\JsonResponse;
@@ -15,6 +17,7 @@ class LikeController extends Controller
 			'quote_id'  => $request['quote_id'],
 			'created_at'=> now(),
 		]);
+		event(new LikeEvent($like));
 		return response()->json(['message'=> 'Post liked', 'like'=>$like]);
 	}
 
@@ -33,6 +36,7 @@ class LikeController extends Controller
 		$like = Like::where('user_id', auth()->id())->where('quote_id', $request['quote_id'])->first();
 
 		if ($like) {
+			event(new RemoveLike($like));
 			$like->delete();
 			return response()->json(['message' => 'Like deleted successfully'], 200);
 		}
