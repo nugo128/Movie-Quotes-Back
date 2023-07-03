@@ -19,7 +19,8 @@ class CommentRequest extends FormRequest
 	{
 		return [
 			'quote_id' => 'required',
-            'comment'=>'required'
+			'comment'  => 'required',
+			'user_id'  => 'required',
 		];
 	}
 }
