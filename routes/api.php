@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CategoryCotroller;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\LikeController;
@@ -30,10 +31,15 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/editProfile', [UserProfileController::class, 'editProfile']);
 Route::get('/verify-new-email/{token}', [UserProfileController::class, 'verify']);
 
+Route::get('/category', [CategoryCotroller::class, 'index']);
+
 Route::get('/post', [QuoteController::class, 'getPost']);
 Route::post('/newPost', [QuoteController::class, 'newPost']);
 Route::get('/search-post', [QuoteController::class, 'searchPost']);
 Route::get('/movies', [MovieController::class, 'getMovies']);
+Route::post('/add-movie', [MovieController::class, 'store']);
+Route::get('/user-movies', [MovieController::class, 'userMovies']);
+Route::get('/search-movie', [MovieController::class, 'searchMovies']);
 Route::post('/like', [LikeController::class, 'store']);
 Route::post('/get-likes', [LikeController::class, 'getLikes']);
 Route::post('/remove-like', [LikeController::class, 'destroy']);

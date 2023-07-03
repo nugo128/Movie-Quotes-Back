@@ -19,6 +19,8 @@ class MovieResource extends JsonResource
 			'title'      => $this->title,
 			'year'       => $this->year,
 			'user_id'    => $this->user_id,
+			'thumbnail'  => $this->thumbnail,
+			'quote'      => QuoteResource::collection($this->quote),
 		];
 	}
 }
