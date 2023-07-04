@@ -19,6 +19,7 @@ class LikeRequest extends FormRequest
 	{
 		return [
 			'quote_id' => 'required',
+			'user_id'  => '',
 		];
 	}
 }
