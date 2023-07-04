@@ -20,8 +20,10 @@ class LikeController extends Controller
 		]);
 		$notification = (object)[
 			'to'        => $request['user_id'],
+			'type'      => 'like',
 			'from'      => auth('sanctum')->user()->name,
 			'user_id'   => auth()->id(),
+			'picture'   => auth('sanctum')->user()->profile_picture,
 		];
 		event(new LikeEvent($like));
 		event(new LikeNotification($notification));
