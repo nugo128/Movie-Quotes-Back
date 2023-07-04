@@ -7,6 +7,7 @@ use App\Events\CommentNotification;
 use App\Http\Requests\CommentRequest;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
+use App\Models\Notifications;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
@@ -21,6 +22,14 @@ class CommentController extends Controller
 			'created_at'=> now(),
 			'user_id'   => $request['user_id'],
 		]);
+
+		Notifications::create([
+			'user_id'               => auth()->id(),
+			'user_to_notify'        => $request['post_author'],
+			'type'                  => 'comment',
+			'seen_by_user'          => false,
+		]);
+
 		$user = User::where('id', $request['user_id'])->first();
 		$notification = (object)[
 			'to'        => $request['post_author'],

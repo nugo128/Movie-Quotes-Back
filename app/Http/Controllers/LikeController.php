@@ -7,6 +7,7 @@ use App\Events\LikeNotification;
 use App\Events\RemoveLike;
 use App\Http\Requests\LikeRequest;
 use App\Models\Like;
+use App\Models\Notifications;
 use Illuminate\Http\JsonResponse;
 
 class LikeController extends Controller
@@ -17,6 +18,12 @@ class LikeController extends Controller
 			'user_id'   => auth()->id(),
 			'quote_id'  => $request['quote_id'],
 			'created_at'=> now(),
+		]);
+		Notifications::create([
+			'user_id'               => auth()->id(),
+			'user_to_notify'        => $request['user_id'],
+			'type'                  => 'like',
+			'seen_by_user'          => false,
 		]);
 		$notification = (object)[
 			'to'        => $request['user_id'],
