@@ -8,7 +8,6 @@ use App\Http\Requests\CommentRequest;
 use App\Http\Resources\CommentResource;
 use App\Models\Comment;
 use App\Models\Notifications;
-use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
 class CommentController extends Controller
@@ -23,20 +22,21 @@ class CommentController extends Controller
 			'user_id'   => $request['user_id'],
 		]);
 
-		Notifications::create([
-			'user_id'               => auth()->id(),
-			'user_to_notify'        => $request['post_author'],
-			'type'                  => 'comment',
-			'seen_by_user'          => false,
-		]);
+		if (auth()->id() !== $request['post_author']) {
+			Notifications::create([
+				'user_id'               => auth()->id(),
+				'user_to_notify'        => $request['post_author'],
+				'type'                  => 'comment',
+				'seen_by_user'          => false,
+			]);
+		}
 
-		$user = User::where('id', $request['user_id'])->first();
 		$notification = (object)[
-			'to'        => $request['post_author'],
-			'type'      => 'comment',
-			'from'      => auth('sanctum')->user()->name,
-			'user_id'   => auth()->id(),
-			'picture'   => $user->profile_picture,
+			'to'          => $request['post_author'],
+			'type'        => 'comment',
+			'from'        => auth('sanctum')->user()->name,
+			'user_id'     => auth()->id(),
+			'picture'     => auth('sanctum')->user()->profile_picture,
 		];
 
 		event(new AddComment(CommentResource::make($comment)));

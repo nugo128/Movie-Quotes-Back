@@ -19,18 +19,24 @@ class LikeController extends Controller
 			'quote_id'  => $request['quote_id'],
 			'created_at'=> now(),
 		]);
-		Notifications::create([
-			'user_id'               => auth()->id(),
-			'user_to_notify'        => $request['user_id'],
-			'type'                  => 'like',
-			'seen_by_user'          => false,
-		]);
+		$existingNotification = Notifications::where('user_id', auth()->id())
+	->where('user_to_notify', $request['user_id'])->where('type', 'like')
+	->first();
+		if (!$existingNotification) {
+			Notifications::create([
+				'user_id'           => auth()->id(),
+				'user_to_notify'    => $request['user_id'],
+				'type'              => 'like',
+				'seen_by_user'      => false,
+			]);
+		}
 		$notification = (object)[
-			'to'        => $request['user_id'],
-			'type'      => 'like',
-			'from'      => auth('sanctum')->user()->name,
-			'user_id'   => auth()->id(),
-			'picture'   => auth('sanctum')->user()->profile_picture,
+			'to'          => $request['user_id'],
+			'type'        => 'like',
+			'from'        => auth('sanctum')->user()->name,
+			'user_id'     => auth()->id(),
+			'createdAt'   => 'Just now',
+			'picture'     => auth('sanctum')->user()->profile_picture,
 		];
 		event(new LikeEvent($like));
 		event(new LikeNotification($notification));

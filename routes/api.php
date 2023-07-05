@@ -6,6 +6,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\GoogleAuthController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\QuoteController;
 use App\Http\Controllers\RegistrationController;
@@ -32,7 +33,7 @@ Route::post('/editProfile', [UserProfileController::class, 'editProfile']);
 Route::get('/verify-new-email/{token}', [UserProfileController::class, 'verify']);
 
 Route::get('/category', [CategoryCotroller::class, 'index']);
-
+Route::get('/get-notifications/{userId}', [NotificationController::class, 'getNotifications']);
 Route::get('/post', [QuoteController::class, 'getPost']);
 Route::post('/newPost', [QuoteController::class, 'newPost']);
 Route::post('/edit-quote', [QuoteController::class, 'update']);
