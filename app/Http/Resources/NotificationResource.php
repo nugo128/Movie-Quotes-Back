@@ -24,6 +24,7 @@ class NotificationResource extends JsonResource
 			'type'                        => $this->type,
 			'to'                          => $this->user_to_notify,
 			'createdAt'                   => $this->created_at,
+			'seen'                        => $this->seen_by_user,
 		];
 	}
 }

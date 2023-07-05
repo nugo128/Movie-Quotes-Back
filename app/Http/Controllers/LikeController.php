@@ -35,7 +35,7 @@ class LikeController extends Controller
 			'type'        => 'like',
 			'from'        => auth('sanctum')->user()->name,
 			'user_id'     => auth()->id(),
-			'createdAt'   => 'Just now',
+			'createdAt'   => now(),
 			'picture'     => auth('sanctum')->user()->profile_picture,
 		];
 		event(new LikeEvent($like));

@@ -36,6 +36,7 @@ class CommentController extends Controller
 			'type'        => 'comment',
 			'from'        => auth('sanctum')->user()->name,
 			'user_id'     => auth()->id(),
+			'createdAt'   => now(),
 			'picture'     => auth('sanctum')->user()->profile_picture,
 		];
 

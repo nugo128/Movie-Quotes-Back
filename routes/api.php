@@ -34,6 +34,7 @@ Route::get('/verify-new-email/{token}', [UserProfileController::class, 'verify']
 
 Route::get('/category', [CategoryCotroller::class, 'index']);
 Route::get('/get-notifications/{userId}', [NotificationController::class, 'getNotifications']);
+Route::post('/read-notifications', [NotificationController::class, 'readNotification']);
 Route::get('/post', [QuoteController::class, 'getPost']);
 Route::post('/newPost', [QuoteController::class, 'newPost']);
 Route::post('/edit-quote', [QuoteController::class, 'update']);
