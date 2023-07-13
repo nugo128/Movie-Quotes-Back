@@ -24,4 +24,14 @@ class NewPostRequest extends FormRequest
 			'image'    => 'image',
 		];
 	}
+
+	public function messages()
+	{
+		return [
+			'quote_ka.regex' => [
+				'en' => 'The movie ID field is required.',
+				'ka' => 'ფილმის ID აუცილებელია.',
+			],
+		];
+	}
 }
