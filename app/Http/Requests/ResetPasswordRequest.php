@@ -22,4 +22,14 @@ class ResetPasswordRequest extends FormRequest
 			'password' => 'required|min:8|max:15|confirmed|regex:/^[a-z0-9]+$/',
 		];
 	}
+
+	public function messages()
+	{
+		return [
+			'token.exists'=> [
+				'en'=> 'token not found',
+				'ka'=> 'ტოკენი არ მოიძებნა',
+			],
+		];
+	}
 }

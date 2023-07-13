@@ -26,7 +26,7 @@ class RegistrationController extends Controller
 		return response()->json(['message'=> 'registered'], 201);
 	}
 
-	public function verify($token)
+	public function verify($token): JsonResponse
 	{
 		$user = User::where('verification_token', $token)->firstOrFail();
 		if (!is_null($user)) {
@@ -35,6 +35,6 @@ class RegistrationController extends Controller
 			auth()->login($user);
 			return response()->json(['message'=> 'verified!'], 201);
 		}
-		return response()->json(['message'=> 'verification failed'], 419);
+		return response()->json(['message'=> ['en'=> 'verification failed', 'ka'=>'ვერიფიკაცია ვერ მოხერხდა']], 419);
 	}
 }

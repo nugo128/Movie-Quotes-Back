@@ -18,7 +18,7 @@ class NewPostRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'quote_ka' => 'required|regex:/^[ა-ჰ.,!?\s]*$/',
+			'quote_ka' => 'required|regex:/^[ა-ჰ0-9.,!?\s]*$/',
 			'quote_en' => 'required|regex:/^[a-zA-Z0-9\s]+$/',
 			'movie_id' => 'required',
 			'image'    => 'image',
@@ -29,8 +29,24 @@ class NewPostRequest extends FormRequest
 	{
 		return [
 			'quote_ka.regex' => [
-				'en' => 'The movie ID field is required.',
-				'ka' => 'ფილმის ID აუცილებელია.',
+				'en' => 'only Georgian letters and numbers allowed',
+				'ka' => 'დასაშვებია მხოლოდ ქართული ასოები და ციფრები',
+			],
+			'quote_ka.required' => [
+				'en' => 'quote in georgian is required',
+				'ka' => 'ციტატა ქართულად აუცილებელია',
+			],
+			'quote_en.regex' => [
+				'en' => 'only English letters and numbers allowed',
+				'ka' => 'დასაშვებია მხოლოდ ინგლისური ასოები და ციფრები',
+			],
+			'quote_en.required' => [
+				'en' => 'quote in english is required',
+				'ka' => 'ციტატა ინგლისურად აუცილებელია',
+			],
+			'movie_id.required'=> [
+				'en'=> 'movie ID is required',
+				'ka'=> 'ფილმის ID სავალდებულოა',
 			],
 		];
 	}
