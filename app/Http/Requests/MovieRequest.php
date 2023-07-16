@@ -16,12 +16,13 @@ class MovieRequest extends FormRequest
 		return [
 			'title_ka'       => 'required|regex:/^[ა-ჰ.,!?\s]*$/|max:255',
 			'title_en'       => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
+			'categories'     => 'required',
 			'description_ka' => 'required|regex:/^[ა-ჰ.,!?\s]+$/|max:255',
 			'description_en' => 'required|regex:/^[a-zA-Z0-9\s]+$/|max:255',
-			'director_ka'    => 'required',
-			'director_en'    => 'required',
+			'director_ka'    => 'required|regex:/^[ა-ჰ.,!?\s]+$/',
+			'director_en'    => 'required|regex:/^[a-zA-Z0-9\s]+$/',
 			'year'           => 'required|numeric',
-			'image'          => 'image',
+			'image'          => 'required|image',
 		];
 	}
 }
