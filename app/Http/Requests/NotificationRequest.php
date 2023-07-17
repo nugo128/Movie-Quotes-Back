@@ -18,7 +18,8 @@ class NotificationRequest extends FormRequest
 	{
 		return [
 			'id' => '',
-            'all'=>''
+			'all'=> '',
+
 		];
 	}
 }

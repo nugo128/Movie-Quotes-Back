@@ -72,7 +72,7 @@ class MovieController extends Controller
 		return response()->json($movie, 200);
 	}
 
-	public function update(MovieUpdateRequest $request)
+	public function update(MovieUpdateRequest $request): JsonResponse
 	{
 		$id = $request->input('id');
 		$movie = Movie::where('id', $id)->first();
@@ -142,7 +142,7 @@ class MovieController extends Controller
 		$movie = Movie::find($movieId);
 
 		if (!$movie) {
-			return response()->json(['error' => 'Movie not found'], 404);
+			return response()->json(['error' => ['en'=>'Movie not found', 'ka'=>'ფილმი არ მოიძებნა']], 404);
 		}
 
 		$movie->delete();

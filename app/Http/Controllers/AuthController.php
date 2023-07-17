@@ -16,7 +16,10 @@ class AuthController extends Controller
 			return response()->json(['message'=> 'logged in'], 201);
 		}
 
-		return response()->json(['message'=> 'user not found'], 404);
+		return response()->json(['message'=> [
+			'en'=> 'invalid credentials',
+			'ka'=> 'მონაცემები არასწორია',
+		]], 404);
 	}
 
 	public function logout(): JsonResponse

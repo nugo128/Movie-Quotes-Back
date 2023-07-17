@@ -20,4 +20,14 @@ class UpdateQuoteRequest extends FormRequest
 			'image'          => 'image',
 		];
 	}
+
+	public function messages()
+	{
+		return [
+			'id.exists'=> [
+				'en'=> 'quote does not exist with provided id',
+				'ka'=> 'ციტატა მოცემული ID-ით არ მოიძებნა',
+			],
+		];
+	}
 }

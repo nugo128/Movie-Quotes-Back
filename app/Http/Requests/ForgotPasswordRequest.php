@@ -6,19 +6,29 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class ForgotPasswordRequest extends FormRequest
 {
-    /**
-     * Determine if the user is authorized to make this request.
-     */
+	/**
+	 * Determine if the user is authorized to make this request.
+	 */
 
-    /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
-     */
-    public function rules(): array
-    {
-        return [
-            'email' => 'required|email|exists:users,email',
-        ];
-    }
+	/**
+	 * Get the validation rules that apply to the request.
+	 *
+	 * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+	 */
+	public function rules(): array
+	{
+		return [
+			'email' => 'required|email|exists:users,email',
+		];
+	}
+
+	public function messages()
+	{
+		return [
+			'email.exists'=> [
+				'en'=> 'user with such email does not exist',
+				'ka'=> 'მომხმარებელი მოცემული მეილით არ მოიძებნა',
+			],
+		];
+	}
 }

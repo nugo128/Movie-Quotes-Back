@@ -12,7 +12,7 @@ return new class() extends Migration {
 	{
 		Schema::create('users', function (Blueprint $table) {
 			$table->id();
-			$table->string('name')->unique();
+			$table->string('name');
 			$table->string('email')->unique();
 			$table->string('verification_token')->nullable();
 			$table->timestamp('email_verified_at')->nullable();
@@ -20,7 +20,7 @@ return new class() extends Migration {
 			$table->string('gauth_type')->nullable();
 			$table->string('password')->nullable();
 			$table->string('reset_token')->nullable();
-			$table->string('profile_picture')->nullable();
+			$table->string('profile_picture')->default('https://i.ibb.co/94kg8w7/profile.png')->nullable();
 			$table->rememberToken();
 			$table->timestamps();
 		});

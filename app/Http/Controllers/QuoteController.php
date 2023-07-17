@@ -66,7 +66,7 @@ class QuoteController extends Controller
 		$quote = Quote::find($quoteId);
 
 		if (!$quote) {
-			return response()->json(['error' => 'Quotenot found'], 404);
+			return response()->json(['error' => ['en'=> 'Quote not found', 'ka'=>'ციტატა არ მოიძებნა']], 404);
 		}
 
 		$quote->delete();

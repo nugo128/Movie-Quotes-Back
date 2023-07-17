@@ -25,41 +25,52 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-	return $request->user();
+
+Route::middleware('auth:sanctum')->group(function () {
+	Route::controller(UserProfileController::class)->group(function () {
+		Route::post('/editProfile', 'editProfile');
+		Route::get('/verify-new-email/{token}', 'verify');
+	});
+	Route::get('/user', function (Request $request) {
+		return $request->user();
+	});
+	Route::get('/category', [CategoryCotroller::class, 'index']);
+
+	Route::controller(NotificationController::class)->group(function () {
+		Route::get('/get-notifications/{userId}', 'getNotifications');
+		Route::post('/read-notifications', 'readNotification');
+	});
+	Route::controller(MovieController::class)->group(function () {
+		Route::get('/movies', 'getMovies');
+		Route::post('/add-movie', 'store');
+		Route::get('/user-movies', 'userMovies');
+		Route::get('/search-movie', 'searchMovies');
+		Route::get('/movie-description', 'movieDescription');
+		Route::delete('/delete-movie/{movieId}', 'destroy');
+		Route::post('/update-movie', 'update');
+	});
+	Route::controller(QuoteController::class)->group(function () {
+		Route::get('/post', 'getPost');
+		Route::post('/newPost', 'newPost');
+		Route::post('/edit-quote', 'update');
+		Route::get('/search-post', 'searchPost');
+		Route::get('/view-quote', 'viewQuote');
+		Route::delete('/delete-quote/{quoteId}', 'destroy');
+	});
+	Route::controller(LikeController::class)->group(function () {
+		Route::post('/like', 'store');
+		Route::post('/get-likes', 'getLikes');
+		Route::post('/remove-like', 'destroy');
+	});
+	Route::post('/comment', [CommentController::class, 'store']);
 });
 
-Route::post('/editProfile', [UserProfileController::class, 'editProfile']);
-Route::get('/verify-new-email/{token}', [UserProfileController::class, 'verify']);
-
-Route::get('/category', [CategoryCotroller::class, 'index']);
-Route::get('/get-notifications/{userId}', [NotificationController::class, 'getNotifications']);
-Route::post('/read-notifications', [NotificationController::class, 'readNotification']);
-Route::get('/post', [QuoteController::class, 'getPost']);
-Route::post('/newPost', [QuoteController::class, 'newPost']);
-Route::post('/edit-quote', [QuoteController::class, 'update']);
-Route::get('/search-post', [QuoteController::class, 'searchPost']);
-Route::get('/view-quote', [QuoteController::class, 'viewQuote']);
-Route::delete('/delete-quote/{quoteId}', [QuoteController::class, 'destroy']);
-Route::get('/movies', [MovieController::class, 'getMovies']);
-Route::post('/add-movie', [MovieController::class, 'store']);
-Route::get('/user-movies', [MovieController::class, 'userMovies']);
-Route::get('/search-movie', [MovieController::class, 'searchMovies']);
-Route::get('/movie-description', [MovieController::class, 'movieDescription']);
-Route::delete('/delete-movie/{movieId}', [MovieController::class, 'destroy']);
-Route::post('/update-movie', [MovieController::class, 'update']);
-Route::post('/like', [LikeController::class, 'store']);
-Route::post('/get-likes', [LikeController::class, 'getLikes']);
-Route::post('/remove-like', [LikeController::class, 'destroy']);
-Route::post('/comment', [CommentController::class, 'store']);
-
-Route::post('/register', [RegistrationController::class, 'register']);
-Route::get('/verify/{token}', [RegistrationController::class, 'verify']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::get('/logout', [AuthController::class, 'logout']);
-
-Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLinkEmail']);
-Route::post('/reset-password', [PasswordResetController::class, 'resetPassword']);
 
 Route::get('auth/google', [GoogleAuthController::class, 'signInwithGoogle']);
 Route::get('callback/google', [GoogleAuthController::class, 'callbackToGoogle']);
+Route::post('/register', [RegistrationController::class, 'register']);
+Route::get('/verify/{token}', [RegistrationController::class, 'verify']);
+Route::get('/logout', [AuthController::class, 'logout']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/forgot-password', [PasswordResetController::class, 'sendResetLinkEmail']);
+Route::post('/reset-password', [PasswordResetController::class, 'resetPassword']);

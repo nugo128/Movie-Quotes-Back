@@ -20,6 +20,7 @@ class LikeRequest extends FormRequest
 		return [
 			'user_id'  => '',
 			'quote_id' => 'required|exists:quotes,id',
+			'user_id'  => '',
 		];
 	}
 }
