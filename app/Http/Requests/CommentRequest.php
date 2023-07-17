@@ -18,7 +18,7 @@ class CommentRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'quote_id'   => 'required',
+			'quote_id' => 'required|exists:quotes,id',
 			'comment'    => 'required',
 			'user_id'    => 'required',
 			'post_author'=> 'required',
