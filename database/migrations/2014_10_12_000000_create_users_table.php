@@ -20,7 +20,7 @@ return new class() extends Migration {
 			$table->string('gauth_type')->nullable();
 			$table->string('password')->nullable();
 			$table->string('reset_token')->nullable();
-			$table->string('profile_picture')->nullable();
+			$table->string('profile_picture')->default('https://i.ibb.co/94kg8w7/profile.png')->nullable();
 			$table->rememberToken();
 			$table->timestamps();
 		});
