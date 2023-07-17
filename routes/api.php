@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::middleware('auth:sanctum')->group(function () {
 	Route::controller(UserProfileController::class)->group(function () {
 		Route::post('/editProfile', 'editProfile');
@@ -63,6 +64,7 @@ Route::middleware('auth:sanctum')->group(function () {
 	});
 	Route::post('/comment', [CommentController::class, 'store']);
 });
+
 
 Route::get('auth/google', [GoogleAuthController::class, 'signInwithGoogle']);
 Route::get('callback/google', [GoogleAuthController::class, 'callbackToGoogle']);
