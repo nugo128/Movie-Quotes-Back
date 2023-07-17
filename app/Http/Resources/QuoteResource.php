@@ -20,6 +20,7 @@ class QuoteResource extends JsonResource
 			'like'               => $this->like,
 			'comment'            => $this->comment,
 			'thumbnail'          => $this->thumbnail,
+			'user'               => UserResource::make($this->user),
 		];
 	}
 }
