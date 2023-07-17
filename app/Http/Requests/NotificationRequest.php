@@ -4,11 +4,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LikeRequest extends FormRequest
+class NotificationRequest extends FormRequest
 {
 	/**
 	 * Determine if the user is authorized to make this request.
-	 */
 
 	/**
 	 * Get the validation rules that apply to the request.
@@ -18,8 +17,8 @@ class LikeRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'user_id'  => '',
-			'quote_id' => 'required|exists:quotes,id',
+			'id' => '',
+            'all'=>''
 		];
 	}
 }
