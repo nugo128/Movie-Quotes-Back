@@ -16,6 +16,9 @@
             padding-top: 40px;
             background-color: #181623;
         }
+        .header {
+            color: #DDCCAA;
+        }
 
         .texts {
             color: #fff;
@@ -35,10 +38,10 @@
         }
 
         h2 {
-            color: #DDCCAA;
             font-size: 24px;
             margin-top: 0;
             margin-bottom: 10px;
+            color: #fff;
         }
 
         .spacing {
@@ -56,7 +59,7 @@
 
         .link {
             word-wrap: break-word;
-            color: #fff;
+            color: #DDCCAA;
             margin-bottom: 0;
         }
 
@@ -71,18 +74,18 @@
         <div class="texts">
             <div class="logo">
                 <img src="https://i.ibb.co/tcT7SHJ/mail.png" alt="mail">
-                <h2>MOVIE QUOTES</h2>
+                <h2 class="header">MOVIE QUOTES</h2>
             </div>
             <h2 class="spacing">Hola {{$user->name}}</h2>
             <h2 class="spacing">Thanks for joining Movie quotes! We really appreciate it. Please click the button below to reset your password:</h2>
-            <a href="{{env('FRONTEND_URL')}}/reset?token={{$user->reset_token}}" class="button spacing">reset password</a>
+            <a href="{{env('FRONTEND_URL')}}/reset?token={{$user->reset_token}}" class="button spacing" style="color:#fff">reset password</a>
             <h2 class="spacing">If clicking doesn't work, you can try copying and pasting the following URL into your browser:</h2>
-            <div class="spacing">
+            <div class="spacing" style="text-decoration: none">
                
-                    <p class="link">{{env('FRONTEND_URL')}}/reset?token={{$user->reset_token}}</p>
+                    <p class="link" style="color:#DDCCAA; word-wrap:break-word; text-decoration: none;">{{env('FRONTEND_URL')}}/reset?token={{$user->reset_token}}</p>
                 
             </div>
-            <h2 class="spacing">If you have any problems, please contact us: support@moviequotes.ge</h2>
+            <h2 class="spacing" style="text-decoration: none">If you have any problems, please contact us: support@moviequotes.ge</h2>
             <h2 class="spacing">MovieQuotes Crew</h2>
             <p class="support">MovieQuotes support</p>
         </div>

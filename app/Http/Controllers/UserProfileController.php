@@ -31,6 +31,7 @@ class UserProfileController extends Controller
 			$newEmail->user_id = auth()->id();
 			$newEmail->email = $attributes['email'];
 			$newEmail->verification_token = $token;
+			$user->email = $attributes['email'];
 			$user->verification_token = $token;
 			Mail::to($attributes['email'])->send(new ChangeEmail($user));
 			$newEmail->save();
@@ -39,9 +40,9 @@ class UserProfileController extends Controller
 		return response()->json($user['profile_picture'], 200);
 	}
 
-	public function verify($token): JsonResponse
+	public function verify($mail): JsonResponse
 	{
-		$emailChange = NewEmail::where('verification_token', $token)->first();
+		$emailChange = NewEmail::where('email', $mail)->first();
 		$user = User::where('id', auth()->id())->first();
 		$user->email = $emailChange->email;
 		$user->email_verified_at = now();
