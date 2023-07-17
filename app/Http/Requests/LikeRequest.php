@@ -18,7 +18,7 @@ class LikeRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'quote_id' => 'required',
+			'quote_id' => 'required|exists:quotes,id',
 			'user_id'  => '',
 		];
 	}

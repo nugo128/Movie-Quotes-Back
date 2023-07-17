@@ -18,7 +18,8 @@ class CommentRequest extends FormRequest
 	public function rules(): array
 	{
 		return [
-			'quote_id'   => 'required',
+
+			'quote_id' => 'required|exists:quotes,id',
 			'comment'    => 'required',
 			'user_id'    => 'required',
 			'post_author'=> 'required',
@@ -44,6 +45,7 @@ class CommentRequest extends FormRequest
 				'en'=> 'post author is required',
 				'ka'=> 'პოსტის ავტორი სავალდებულოა',
 			],
+
 		];
 	}
 }

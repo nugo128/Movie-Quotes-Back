@@ -44,10 +44,14 @@ class UserProfileController extends Controller
 	{
 		$emailChange = NewEmail::where('email', $mail)->first();
 		$user = User::where('id', auth()->id())->first();
-		$user->email = $emailChange->email;
-		$user->email_verified_at = now();
-		$user->updated_at = now();
-		$user->save();
+		if (!$emailChange || !$user) {
+			return response()->json(['error' => 'Invalid token or user not found'], 404);
+		}
+		$user->update([
+			'email'             => $emailChange->email,
+			'email_verified_at' => now(),
+			'updated_at'        => now(),
+		]);
 		$emailChange->delete();
 
 		return response()->json(['message'=>'verified'], 200);
